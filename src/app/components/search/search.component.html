@@ -1,0 +1,24 @@
+<!-- Input buscador -->
+<div class="row mb-5 mt-5">
+  <div class="col">
+    <input (keyup)="buscar(termino.value)" type="text" class="form-control" placeholder="Buscar" #termino>
+  </div>
+</div>
+
+<!-- Loading -->
+<app-loading *ngIf="loading" ></app-loading>
+
+<!-- Error en la peticion -->
+<div *ngIf="error" class="alert alert-danger text-center animated fadeIn fast">
+  <h4>¡Error!</h4>
+  <p>{{ mensajeError }}</p>
+</div>
+
+<!-- No se encontraron resultados -->
+<div *ngIf="artistas.length == 0 && termino.value != 0 && loading === false" class="alert alert-success text-center animated fadeIn fast">
+  <h4>¡Ups!</h4>
+  <p>No se encontraron resultados de: <strong>{{ termino.value }}</strong></p>
+</div>
+
+<!-- Resultados -->
+<app-card-artista *ngIf="!loading" [items]="artistas" ></app-card-artista>

@@ -1,0 +1,55 @@
+<app-loading *ngIf="loading" ></app-loading>
+
+<div *ngIf="!loading" class="mt-5 animated fadeIn fast">
+    <div class="row">
+        <div class="col-2">
+            <img [src]="artista.images | noimage" [alt]="artista.name" class="img-thumbnail img-circle">
+        </div>
+        <div class="col">
+            <h3>{{ artista.name }}</h3>
+            <p>
+                <a class="badge badge-success" [href]="artista.external_urls.spotify" target="_blank">
+                    Ir al perfil en Spotify
+                </a>
+            </p>
+        </div>
+        <div class="col-4 text-right">
+            <button routerLink="/search" routerLinkActive="router-link-active"  class="btn btn-outline-warning">
+                < Regresar
+            </button>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <table class="table" style="color: white;">
+                <thead>
+                    <tr>
+                      <th scope="col">Foto</th>
+                      <th scope="col">Album</th>
+                      <th scope="col">Canción</th>
+                      <th scope="col">Vista Previa</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let track of topTracks">
+                        <th>
+                            <img class="img-thumb" [src]="track.album.images | noimage" [alt]="track.album.name">
+                        </th>
+                        <td class="align-middle" >{{ track.album.name }}</td>
+                        <td class="align-middle">{{ track.name }}</td>
+                        <td>
+                            <!-- <audio [src]="track.preview_url" controls></audio> -->
+                            <iframe [src]="track.uri | domseguro" 
+                                    width="300" 
+                                    height="80" 
+                                    frameborder="0" 
+                                    allowtransparency="true" 
+                                    allow="encrypted-media">
+                            </iframe>
+                        </td>
+                      </tr>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>
